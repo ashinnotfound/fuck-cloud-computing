@@ -1,0 +1,29 @@
+deploy-host: 127.0.0.1
+server:
+  port: 9999
+spring:
+  application:
+    name: hot-search-ranking
+  rabbitmq:
+    host: ${deploy-host}
+    username: guest
+    password: guest
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 5
+        acknowledge-mode: auto
+  redis:
+    host: ${deploy-host}
+    port: 6379
+    database: 0
+    connect-timeout: 5s
+    timeout: 5s
+
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
